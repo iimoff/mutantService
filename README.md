@@ -14,14 +14,14 @@ Spring Tool Suite Version: 3.9.4.RELEASE
 2) Se debe tener una instancia de mongoDb levantada para que los casos de prueba puedan ser ejecutados y el war compilado.
 
 ##PASOS:
-1) Descargar el proyecto en la carpeta deseadadb
+1) Descargar el proyecto en la carpeta deseada mediante git clone
 2) Antes de compilar la dependencia, levantar una instancia de mongo para que se puedan ejecutar los casos de prueba
     Linux "sudo service mongod start"
-    Windos "mongod"
-3) Para compilar el proyecto la carperta raiz del proyecto y generar el war ejecutar el comando "mvn clean install" en esta caso "mutantService"
-4) Una vez ejecutado el paso anterior, se pueden revisar las metricas de test coverage en "mutantService\target\site\jacoco\index.html"
+    Windows "mongod"
+3) Para compilar el proyecto la carperta raiz del proyecto y generar el war, ejecutando el comando "mvn clean install" en este caso "mutantService"
+4) Una vez ejecutado el paso anterior, se pueden revisar las métricas de test coverage en "mutantService\target\site\jacoco\index.html"
 5) Para correr el proyecto en forma local, sobre la carperta raiz del proyecto ejecutar "mvnw spring-boot:run"
-6) Para subir el proyecto, el mismo se subio a un Tomcat8, dentro de un nodo EC2 con ubuntu 16.04 de AWS.
+6) Para subir el proyecto, el mismo fue subido a un Tomcat8, dentro de un nodo EC2 con ubuntu 16.04 de AWS.
 
 ##DUDAS Y/O COMENTARIOS
 
