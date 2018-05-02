@@ -13,6 +13,7 @@ import com.mercadolibre.iimoff.matrixFinder.search.impl.RightHorizontalSearch;
 import com.mercadolibre.iimoff.mutantService.dao.DnaDao;
 import com.mercadolibre.iimoff.mutantService.entity.DnaEntity;
 import com.mercadolibre.iimoff.mutantService.entity.StatEntity;
+import com.mongodb.DuplicateKeyException;
 import com.mercadolibre.iimoff.matrixFinder.search.impl.DownRightDiagonalSearch;
 import com.mercadolibre.iimoff.matrixFinder.search.impl.DownVerticalSearch;
 import com.mercadolibre.iimoff.matrixFinder.search.impl.DownLeftDiagonalSearch;
@@ -46,28 +47,31 @@ public class DnaService {
 			new DownLeftDiagonalSearch()
 	};
 		
+	
 				
 	public boolean isMutant(String [] dna) {
 		int i = 0;
 		int countHits = 0;
 		boolean isMutant = false;		
 		
-		Set<String> cellsHitted = new HashSet<>();		
-		/*MIENTRAS TENGA ELEMENTOS Y TODAVIA NO ENCONTRE LA CANTIDAD DE HITS NECESARIOS RECORRO LOS ROWS*/
+		Set<String> cellsHitted = new HashSet<>();
+		/*WHILE THE MATRIX  HAS ROWS TO ITERATE AND I DIDN'T  
+		 * FIND THE ADN HITS REQUIRED, I'LL MOVE TO THE NEXT ROW*/		
 		while(i < matrixRows && countHits < mutantSecuencesAcumRequired) {	
 			
+			/*WHILE THE MATRIX  HAS COLS TO ITERATE AND I DIDN'T 
+			 * FIND THE ADN HITS REQUIRED, I'LL MOVE TO THE NEXT COL*/	
 			int j = 0;			
 			while(j < matrixCols && countHits < mutantSecuencesAcumRequired) {	
 				
 				int x = 0;
-				boolean isHit = false;				
-				/*MIENTRAS TENGA VALIDADIONES PARA EJECUTAR Y EL CONTADOR DE MUTANTES SEA MENOR 
-				 * A LO REQUERIDO */
+				boolean isHit = false;
+				/*WHILE THE LIST HAS VALIDATIONS TO PERMORM AND I DIDN'T 	
+				 * FIND THE ADN HITS REQUIRED, I'LL MOVE TO THE NEXT COL*/				
 				while(x < searchDirections.length && countHits < mutantSecuencesAcumRequired ) {
 					
 					isHit = searchDirections[x].execute(dna, cellsHitted ,mutantKeys, mutantSecuenceCellsHitsRequired, i, j);					
-					if(isHit) {
-						/*CONSTRUIR UN NUEVO REGISTRO CON EL ADN MARCADO COMO MUTANTE*/
+					if(isHit) {						
 						countHits++;
 					}						
 					x++;
@@ -77,27 +81,34 @@ public class DnaService {
 			i++;			
 		}
 		
-		isMutant = countHits >= mutantSecuencesAcumRequired;		
+		isMutant = countHits >= mutantSecuencesAcumRequired;
 		dnaDao.save(new DnaEntity(dna, isMutant));
 		
 		return isMutant;
 	}	
 	
 	
-	public StatEntity getDnaVerificationStats(){		
-		
-		float ratio = 0F;		
-		long mutantsCount = dnaDao.count(Example.of(new DnaEntity(true)));			
-		long humansCont = dnaDao.count(Example.of(new DnaEntity(false)));
+	protected float calculateStats(long mutantsCount, long humansCont) {
+		float ratio = 0F;
 		
 		if(humansCont > 0) {
 			int scale = (int) Math.pow(10, 1);
 			double result = ((double) mutantsCount/humansCont);
 			ratio = (float) Math.round(result * scale) / scale;			
-		}		
+		}
+		return ratio;
+	}
+	
+	public StatEntity getDnaVerificationStats(){		
+				
+		long mutantsCount = dnaDao.count(Example.of(new DnaEntity(true)));			
+		long humansCont = dnaDao.count(Example.of(new DnaEntity(false)));
+		float ratio = calculateStats(mutantsCount, humansCont);
+			
 		return new StatEntity(mutantsCount, humansCont, ratio);
 		
 	}
+	
 	
 
 }

@@ -19,6 +19,39 @@ public class DnaServiceTest {
 	private DnaService dnaService;
 	
 	@Test
+	public void zeroHumanAndMutantTest() {	    	
+		long mutantsCount = 0L;
+		long humansCont = 0L;
+		float expected = 0F;
+		assertTrue("zeroHumanAndMutantTest must be equals to 0", dnaService.calculateStats(mutantsCount,humansCont) == expected);		
+	}
+	
+	@Test
+	public void divideByZero() {	    	
+		long mutantsCount = 100L;
+		long humansCont = 0L;
+		float expected = 0F;
+		assertTrue("divideByZero must be equals to 0", dnaService.calculateStats(mutantsCount,humansCont) == expected);		
+	}
+	
+	@Test
+	public void testProvidedInExample() {	    	
+		long mutantsCount = 40L;
+		long humansCont = 100L;
+		float expected = 0.4f;
+		assertTrue("divideByZero must be equals to 0", dnaService.calculateStats(mutantsCount,humansCont) == expected);		
+	}
+	
+	
+	@Test
+	public void moreMutantsThanHumans() {	    	
+		long mutantsCount = 100000000L;
+		long humansCont = 1000000L;
+		float expected = 100.0f;
+		assertTrue("divideByZero must be equals to 0", dnaService.calculateStats(mutantsCount,humansCont) == expected);		
+	}
+	
+	@Test
 	public void isHorizontalHit() {		
 		
 		String[]dna = {

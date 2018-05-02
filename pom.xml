@@ -7,6 +7,7 @@
 	<artifactId>mutantService</artifactId>
 	<version>1.0.0</version>
 	<packaging>war</packaging>
+	
 
 	<name>mutantService</name>
 	<description>Demo project for Spring Boot</description>
@@ -70,11 +71,14 @@
 		   <groupId>org.codehaus.sonar.plugins</groupId>
 		   <artifactId>sonar-jacoco-plugin</artifactId>
 		   <version>3.2.1</version>
-		</dependency>
-						
+		</dependency>		
+								
 	</dependencies>
 
 	<build>
+		
+		<finalName>mutantservice</finalName>
+		
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -111,7 +115,7 @@
 		                                <limit>
 		                                    <counter>COMPLEXITY</counter>
 		                                    <value>COVEREDRATIO</value>
-		                                    <minimum>0.80</minimum>
+		                                    <minimum>0.76</minimum>
 		                                </limit>
 		                            </limits>
 		                        </rule>
@@ -121,8 +125,6 @@
 		        </executions>   
 		    </plugin>
 		</plugins>
-		
-		
 		
 	</build>
 

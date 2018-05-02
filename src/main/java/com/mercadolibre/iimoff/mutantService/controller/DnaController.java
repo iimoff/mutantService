@@ -14,7 +14,6 @@ import com.mercadolibre.iimoff.mutantService.service.DnaService;
 
 
 @RestController
-@RequestMapping("/mutantservice")
 public class DnaController {
 	
 	@Autowired
