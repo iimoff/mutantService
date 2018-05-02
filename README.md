@@ -22,6 +22,11 @@ Spring Tool Suite Version: 3.9.4.RELEASE
 4) Una vez ejecutado el paso anterior, se pueden revisar las métricas de test coverage en "mutantService\target\site\jacoco\index.html"
 5) Para correr el proyecto en forma local, sobre la carperta raiz del proyecto ejecutar "mvnw spring-boot:run"
 6) Para subir el proyecto, el mismo fue subido a un Tomcat8, dentro de un nodo EC2 con ubuntu 16.04 de AWS.
+8) Urls para probar la instalación local:
+
+	POST http://localhost:8080/mutant 	
+	
+	GET   http://localhost:8080/stats	
 
 ##DUDAS Y/O COMENTARIOS
 
