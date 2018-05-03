@@ -28,6 +28,10 @@ Spring Tool Suite Version: 3.9.4.RELEASE
 	
 	GET   http://localhost:8080/stats	
 
+##OBSERVACIONES
+
+La app fue deployada en un nodo EC2, no llegue a poner un load balancer ELB de amazon para distribuir la demanda de request entre distintos nodos de un cluster, y de esta forma poder escalar la app según sea requerido.
+
 ##DUDAS Y/O COMENTARIOS
 
 ivanhoff.01@gmail.com
